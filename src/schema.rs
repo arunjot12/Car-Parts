@@ -3,7 +3,37 @@
 pub mod sql_types {
     #[derive(diesel::query_builder::QueryId, Clone, diesel::sql_types::SqlType)]
     #[diesel(mysql_type(name = "Enum"))]
+    pub struct TaskPriorityEnum;
+
+    #[derive(diesel::query_builder::QueryId, Clone, diesel::sql_types::SqlType)]
+    #[diesel(mysql_type(name = "Enum"))]
+    pub struct TaskStatusEnum;
+
+    #[derive(diesel::query_builder::QueryId, Clone, diesel::sql_types::SqlType)]
+    #[diesel(mysql_type(name = "Enum"))]
     pub struct UsersRoleEnum;
+}
+
+diesel::table! {
+    use diesel::sql_types::*;
+    use super::sql_types::TaskStatusEnum;
+    use super::sql_types::TaskPriorityEnum;
+
+    task (id) {
+        id -> Integer,
+        #[max_length = 255]
+        title -> Nullable<Varchar>,
+        description -> Nullable<Text>,
+        #[max_length = 11]
+        status -> Nullable<TaskStatusEnum>,
+        #[max_length = 6]
+        priority -> Nullable<TaskPriorityEnum>,
+        #[max_length = 255]
+        created_by_id -> Nullable<Varchar>,
+        #[max_length = 255]
+        assigned_to_id -> Nullable<Varchar>,
+        created_at -> Nullable<Timestamp>,
+    }
 }
 
 diesel::table! {
@@ -24,3 +54,5 @@ diesel::table! {
         updated_at -> Nullable<Timestamp>,
     }
 }
+
+diesel::allow_tables_to_appear_in_same_query!(task, users,);
