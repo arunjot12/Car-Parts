@@ -2,7 +2,8 @@ use axum::{
     routing::get,
     Router
 };
-
+use argon2::{Argon2, PasswordHasher, password_hash::{PasswordHash, SaltString}};
+use rand_core::OsRng;
 pub mod data;
 
 #[tokio::main]
@@ -11,7 +12,11 @@ async fn main() {
    let email = "arunjotsingh@gmail.com";
    let password = "arunjot";
 
-   let hashed_password = password
+   let argon = Argon2::default();
+   let salt_string = SaltString::generate(&mut OsRng);
+
+   let hashed_password = argon.hash_password(password.as_bytes(), salt_string).unwrap().to_string();
+
 
    let app = Router::new().route("/",get(root)).route("/hello",get(run));
    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await.unwrap();
