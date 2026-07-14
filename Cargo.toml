@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+argon = "0.1.0"
 axum = "0.8.9"
 diesel = { version = "2.3.11", features = ["mysql"] }
 dotenv = "0.15.0"
