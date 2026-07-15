@@ -3,8 +3,8 @@ use axum::{
     Router
 };
 use argon2::{Argon2, PasswordHasher, password_hash::{PasswordHash, SaltString}};
-use rand_core::OsRng;
 pub mod data;
+use rand_core::OsRng;
 
 #[tokio::main]
 async fn main() {
@@ -15,7 +15,7 @@ async fn main() {
    let argon = Argon2::default();
    let salt_string = SaltString::generate(&mut OsRng);
 
-   let hashed_password = argon.hash_password(password.as_bytes(), salt_string).unwrap().to_string();
+   let hashed_password = argon.hash_password(password.as_bytes(), &salt_string).unwrap().to_string();
 
 
    let app = Router::new().route("/",get(root)).route("/hello",get(run));
