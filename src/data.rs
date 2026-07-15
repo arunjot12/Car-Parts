@@ -1,5 +1,5 @@
 #[derive(Debug)]
 pub struct Username {
-    email: String,
-    password: String
+    pub email: String,
+    pub password: String
 }
