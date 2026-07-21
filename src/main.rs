@@ -3,10 +3,12 @@ use axum::{
     routing::get,
     Router
 };
+use diesel::RunQueryDsl;
+use schema::users::dsl::*;
 use argon2::{Argon2, PasswordHasher, password_hash::{PasswordHash, SaltString}};
 pub mod data;
 use rand_core::OsRng;
-use diesel::{mysql::MysqlConnection, Connection};
+use diesel::{Connection, insert_into, mysql::MysqlConnection};
 use crate::data::Username;
 use dotenv::dotenv;
 pub mod schema; 
@@ -20,16 +22,19 @@ fn establish_connection() -> MysqlConnection {
 
 #[tokio::main]
 async fn main() {
-   let email = "arunjotsingh@gmail.com";
+   let new_email = "arunjotsingh@gmail.com";
    let password = "arunjot";
-   establish_connection();
+   let mut connection = establish_connection();
 
    let argon = Argon2::default();
    let salt_string = SaltString::generate(&mut OsRng);
-   let hashed_password = argon.hash_password(password.as_bytes(), &salt_string).unwrap().to_string();
+   let new_hashed_password = argon.hash_password(password.as_bytes(), &salt_string).unwrap().to_string();
    let store_data = Username{
-    email : email.to_string(),
-    hashed_password : hashed_password
+    email : new_email.to_string(),
+    hashed_password : new_hashed_password
    };
 
+   let insertion = insert_into(users).values(store_data).execute(&mut connection);
+
 }
+    
