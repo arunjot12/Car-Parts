@@ -9,6 +9,8 @@ use rand_core::OsRng;
 use diesel::{mysql::MysqlConnection, Connection};
 use crate::data::Username;
 use dotenv::dotenv;
+pub mod schema; 
+
 
 fn establish_connection() -> MysqlConnection {
     dotenv().ok();
@@ -27,18 +29,7 @@ async fn main() {
    let hashed_password = argon.hash_password(password.as_bytes(), &salt_string).unwrap().to_string();
    let store_data = Username{
     email : email.to_string(),
-    password : hashed_password
+    hashed_password : hashed_password
    };
 
-//    let app = Router::new().route("/",get(root)).route("/hello",get(run));
-//    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await.unwrap();
-//    axum::serve(listener,app).await.unwrap();
 }
-
-// async fn root() -> &'static str{
-//     "Hello Arun bhai. Naukri lag jayegi"
-// }
-
-// async fn run() -> &'static str{
-//     "Hello from the another server"
-// }

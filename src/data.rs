@@ -1,5 +1,9 @@
+use diesel::prelude::*;
+
 #[derive(Debug)]
+#[derive(Queryable,Selectable)]
+#[diesel(table_name = crate::schema::users)]
 pub struct Username {
     pub email: String,
-    pub password: String
+    pub hashed_password: String
 }
