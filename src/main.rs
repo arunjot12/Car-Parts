@@ -3,7 +3,7 @@ use axum::{
     routing::get,
     Router
 };
-use diesel::RunQueryDsl;
+use diesel::{RunQueryDsl, dsl::select, query_dsl::methods::FilterDsl};
 use schema::users::dsl::*;
 use argon2::{Argon2, PasswordHasher, password_hash::{PasswordHash, SaltString}};
 pub mod data;
@@ -34,7 +34,12 @@ async fn main() {
     hashed_password : new_hashed_password
    };
 
+   let check = select(users).filter(users.email)
    let insertion = insert_into(users).values(store_data).execute(&mut connection);
+    match insertion {
+        Ok(_) => println!("Insertion is good"),
+        Err(err) => println!("{}",err)
+    }
 
 }
     
