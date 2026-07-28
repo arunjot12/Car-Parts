@@ -1,4 +1,5 @@
 // @generated automatically by Diesel CLI.
+
 pub mod sql_types {
     #[derive(diesel::query_builder::QueryId, Clone, diesel::sql_types::SqlType)]
     #[diesel(mysql_type(name = "Enum"))]
@@ -41,8 +42,10 @@ diesel::table! {
 
     users (id) {
         id -> Integer,
-        #[max_length = 255]
-        full_name -> Nullable<Varchar>,
+        #[max_length = 100]
+        first_name -> Nullable<Varchar>,
+        #[max_length = 100]
+        last_name -> Nullable<Varchar>,
         #[max_length = 255]
         email -> Nullable<Varchar>,
         #[max_length = 255]
