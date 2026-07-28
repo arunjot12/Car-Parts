@@ -47,10 +47,12 @@ diesel::table! {
         #[max_length = 100]
         last_name -> Nullable<Varchar>,
         #[max_length = 255]
-        email -> Nullable<Varchar>,
+        email -> Varchar,
+        #[max_length = 20]
+        phone -> Nullable<Varchar>,
         #[max_length = 255]
-        hashed_password -> Nullable<Varchar>,
-        #[max_length = 5]
+        hashed_password -> Varchar,
+        #[max_length = 10]
         role -> UsersRoleEnum,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
