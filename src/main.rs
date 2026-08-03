@@ -3,13 +3,14 @@ use axum::{
     routing::get,
     Router
 };
-use diesel::{RunQueryDsl, dsl::select, query_dsl::methods::FilterDsl};
+use diesel::ExpressionMethods;
+use diesel::{RunQueryDsl, associations::HasTable, dsl::select, query_dsl::methods::FilterDsl};
 use schema::users::dsl::*;
 use argon2::{Argon2, PasswordHasher, password_hash::{PasswordHash, SaltString}};
 pub mod data;
 use rand_core::OsRng;
 use diesel::{Connection, insert_into, mysql::MysqlConnection};
-use crate::data::Username;
+use crate::data::NewUser;
 use dotenv::dotenv;
 pub mod schema; 
 
@@ -29,16 +30,18 @@ async fn main() {
    let argon = Argon2::default();
    let salt_string = SaltString::generate(&mut OsRng);
    let new_hashed_password = argon.hash_password(password.as_bytes(), &salt_string).unwrap().to_string();
-   let store_data = Username{
+   let store_data = NewUser{
     email : new_email.to_string(),
     hashed_password : new_hashed_password
    };
 
-//    let check = select(users).filter(users.email);
-   let insertion = insert_into(users).values(store_data).execute(&mut connection);
-    match insertion {
-        Ok(_) => println!("Insertion is good"),
-        Err(err) => println!("{}",err)
-    }
+
+   let check = users.filter(email.eq(new_email));
+
+//    let insertion = insert_into(users).values(store_data).execute(&mut connection);
+//     match insertion {
+//         Ok(_) => println!("Insertion is done"),
+//         Err(err) => println!("{}",err)
+//     }
 }
     
