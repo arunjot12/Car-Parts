@@ -34,12 +34,11 @@ async fn main() {
     hashed_password : new_hashed_password
    };
 
-   let check = select(users).filter(users.email)
+//    let check = select(users).filter(users.email);
    let insertion = insert_into(users).values(store_data).execute(&mut connection);
     match insertion {
         Ok(_) => println!("Insertion is good"),
         Err(err) => println!("{}",err)
     }
-
 }
     
