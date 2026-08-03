@@ -1,0 +1,5 @@
+-- Your SQL goes here
+ALTER TABLE users
+MODIFY COLUMN role
+ENUM('ADMIN', 'SHOPKEEPER', 'CUSTOMER')
+NOT NULL;
