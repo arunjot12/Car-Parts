@@ -1,19 +1,13 @@
 use std::env;
-use axum::{
-    routing::get,
-    Router
-};
-use diesel::ExpressionMethods;
 use diesel::{RunQueryDsl, associations::HasTable, dsl::select, query_dsl::methods::FilterDsl};
 use schema::users::dsl::*;
 use argon2::{Argon2, PasswordHasher, password_hash::{PasswordHash, SaltString}};
 pub mod data;
 use rand_core::OsRng;
 use diesel::{Connection, insert_into, mysql::MysqlConnection};
-use crate::data::{NewUser, Users};
+use crate::data::NewUser;
 use dotenv::dotenv;
 pub mod schema; 
-
 
 fn establish_connection() -> MysqlConnection {
     dotenv().ok();
@@ -34,9 +28,6 @@ async fn main() {
     email : new_email.to_string(),
     hashed_password : new_hashed_password
    };
-
-
-//    let check = users.filter(email.eq(new_email)).first::<Users>(&mut connection);
 
    let insertion = insert_into(users).values(store_data).execute(&mut connection);
     match insertion {
