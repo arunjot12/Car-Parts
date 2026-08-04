@@ -32,7 +32,7 @@ diesel::table! {
         #[max_length = 255]
         hashed_password -> Nullable<Varchar>,
         #[max_length = 10]
-        phone_number -> Nullable<Char>,
+        phone_number -> Char,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
     }

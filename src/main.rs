@@ -29,10 +29,10 @@ async fn main() {
     hashed_password : new_hashed_password
    };
 
-   let insertion = insert_into(users).values(store_data).execute(&mut connection);
-    match insertion {
-        Ok(_) => println!("Insertion is done"),
-        Err(err) => println!("{}",err)
-    }
+//    let insertion = insert_into(users).values(store_data).execute(&mut connection);
+//     match insertion {
+//         Ok(_) => println!("Insertion is done"),
+//         Err(err) => println!("{}",err)
+//     }
 }
     

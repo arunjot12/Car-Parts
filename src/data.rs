@@ -26,7 +26,6 @@ pub struct Users{
     pub first_name : Option<String>,
     pub email: String,
     pub hashed_password: String,
-    pub role: Role,
     pub created_at: Option<NaiveDateTime>,
     pub updated_at: Option<NaiveDateTime>
 }
