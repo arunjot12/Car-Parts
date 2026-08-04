@@ -1,2 +1,2 @@
-pub mod signup_shopkeepers;
+pub mod signup_shopkeeper;
 pub mod signup_users;
