@@ -10,7 +10,7 @@ use argon2::{Argon2, PasswordHasher, password_hash::{PasswordHash, SaltString}};
 pub mod data;
 use rand_core::OsRng;
 use diesel::{Connection, insert_into, mysql::MysqlConnection};
-use crate::data::NewUser;
+use crate::data::{NewUser, Users};
 use dotenv::dotenv;
 pub mod schema; 
 
@@ -36,7 +36,7 @@ async fn main() {
    };
 
 
-   let check = users.filter(email.eq(new_email));
+   let check = users.filter(email.eq(new_email)).first::<Users>(&mut connection);
 
 //    let insertion = insert_into(users).values(store_data).execute(&mut connection);
 //     match insertion {

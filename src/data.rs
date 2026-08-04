@@ -1,5 +1,14 @@
 use diesel::prelude::*;
 
+use crate::schema::sql_types::UsersRoleEnum;
+
+#[derive(Debug)]
+pub enum Role{
+    Admin, 
+    Shopkeeper, 
+    Customer
+}
+
 #[derive(Debug)]
 #[derive(Queryable,Selectable, Insertable)]
 #[diesel(table_name = crate::schema::users)]
@@ -16,7 +25,6 @@ pub struct Users{
     pub first_name : Option<String>,
     pub email: String,
     pub hashed_password: String,
-    pub role: String,
-    pub created_at: String,
-    pub updated_at: String
+    pub role: UsersRoleEnum,
+    pub 
 }

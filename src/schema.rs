@@ -3,6 +3,7 @@
 pub mod sql_types {
     #[derive(diesel::query_builder::QueryId, Clone, diesel::sql_types::SqlType)]
     #[diesel(mysql_type(name = "Enum"))]
+    #[derive(Debug)]
     pub struct UsersRoleEnum;
 }
 
