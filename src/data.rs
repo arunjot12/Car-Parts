@@ -1,12 +1,13 @@
+use chrono::NaiveDateTime;
 use diesel::prelude::*;
+use diesel_derive_enum::DbEnum;
 
-use crate::schema::sql_types::UsersRoleEnum;
-
-#[derive(Debug)]
-pub enum Role{
-    Admin, 
-    Shopkeeper, 
-    Customer
+#[derive(Debug, DbEnum, Clone, Copy, PartialEq, Eq)]
+#[DbValueStyle = "snake_case"]
+pub enum Role {
+    Admin,
+    Shopkeeper,
+    Customer,
 }
 
 #[derive(Debug)]
@@ -25,6 +26,7 @@ pub struct Users{
     pub first_name : Option<String>,
     pub email: String,
     pub hashed_password: String,
-    pub role: UsersRoleEnum,
-    pub 
+    pub role: Role,
+    pub created_at: Option<NaiveDateTime>,
+    pub updated_at: Option<NaiveDateTime>
 }
