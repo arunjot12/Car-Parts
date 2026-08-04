@@ -1,27 +1,41 @@
 // @generated automatically by Diesel CLI.
 
-pub mod sql_types {
-    #[derive(diesel::query_builder::QueryId, Clone, diesel::sql_types::SqlType)]
-    #[diesel(mysql_type(name = "Enum"))]
-    #[derive(Debug)]
-    pub struct UsersRoleEnum;
+diesel::table! {
+    signup_shopkeepers (id) {
+        id -> Integer,
+        #[max_length = 255]
+        first_name -> Nullable<Varchar>,
+        #[max_length = 255]
+        email -> Nullable<Varchar>,
+        #[max_length = 255]
+        hashed_password -> Nullable<Varchar>,
+        #[max_length = 10]
+        phone_number -> Nullable<Char>,
+        #[max_length = 255]
+        shop_name -> Nullable<Varchar>,
+        #[max_length = 255]
+        shop_address -> Nullable<Varchar>,
+        #[max_length = 255]
+        city -> Nullable<Varchar>,
+        created_at -> Nullable<Timestamp>,
+        updated_at -> Nullable<Timestamp>,
+    }
 }
 
 diesel::table! {
-    use diesel::sql_types::*;
-    use super::sql_types::UsersRoleEnum;
-
     users (id) {
         id -> Integer,
         #[max_length = 255]
         first_name -> Nullable<Varchar>,
         #[max_length = 255]
-        email -> Varchar,
+        email -> Nullable<Varchar>,
         #[max_length = 255]
-        hashed_password -> Varchar,
+        hashed_password -> Nullable<Varchar>,
         #[max_length = 10]
-        role -> UsersRoleEnum,
+        phone_number -> Nullable<Char>,
         created_at -> Nullable<Timestamp>,
         updated_at -> Nullable<Timestamp>,
     }
 }
+
+diesel::allow_tables_to_appear_in_same_query!(signup_shopkeepers, users,);

@@ -36,12 +36,12 @@ async fn main() {
    };
 
 
-   let check = users.filter(email.eq(new_email)).first::<Users>(&mut connection);
+//    let check = users.filter(email.eq(new_email)).first::<Users>(&mut connection);
 
-//    let insertion = insert_into(users).values(store_data).execute(&mut connection);
-//     match insertion {
-//         Ok(_) => println!("Insertion is done"),
-//         Err(err) => println!("{}",err)
-//     }
+   let insertion = insert_into(users).values(store_data).execute(&mut connection);
+    match insertion {
+        Ok(_) => println!("Insertion is done"),
+        Err(err) => println!("{}",err)
+    }
 }
     
