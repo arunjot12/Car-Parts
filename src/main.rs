@@ -1,12 +1,11 @@
 use std::env;
-use diesel::{RunQueryDsl, associations::HasTable, dsl::select, query_dsl::methods::FilterDsl};
 pub mod data;
 pub mod signup;
-use diesel::{Connection, insert_into, mysql::MysqlConnection};
+use diesel::{Connection,RunQueryDsl, insert_into, mysql::MysqlConnection};
 use dotenv::dotenv;
-
-use crate::signup::read_input;
-pub mod schema; 
+use crate::schema::users::dsl::users;
+use crate::signup::{read_input, signup_users};
+pub mod schema;
 
 fn establish_connection() -> MysqlConnection {
     dotenv().ok();
@@ -16,27 +15,26 @@ fn establish_connection() -> MysqlConnection {
 
 #[tokio::main]
 async fn main() {
-   establish_connection();
-   println!("Let's start the database entry. Choice the right option");
-   println!("1 for customer ");
-   println!("2 for shopkeeper");
+    let mut connection = establish_connection();
+    println!("Let's start the database entry. Choice the right option");
+    println!("1 for customer ");
+    println!("2 for shopkeeper");
 
-   let choice = read_input().1;
-   if choice == 0 {
-//    let insertion = insert_into(users).values(store_data).execute(&mut connection);
-//     match insertion {
-//         Ok(_) => println!("Insertion is done"),
-//         Err(err) => println!("{}",err)
-//     }
-   }
-   else{
-
-//    let insertion = insert_into(users).values(store_data).execute(&mut connection);
-//     match insertion {
-//         Ok(_) => println!("Insertion is done"),
-//         Err(err) => println!("{}",err)
-//     }
-   }
-
+    let choice = read_input().1;
+    if choice == 0 {
+        let customer = signup_users::signup_users();
+        let insert_customer = insert_into(users)
+            .values(customer)
+            .execute(&mut connection);
+        match insert_customer {
+            Ok(_) => println!("Insertion is completed for customer"),
+            Err(err) => println!("{}", err),
+        }
+    } else {
+           let insert_shopkeeper = insert_into(users).values(store_data).execute(&mut connection);
+            match insert_shopkeeper {
+                Ok(_) => println!("Insertion is completed for shopkeeper"),
+                Err(err) => println!("{}",err)
+            }
+    }
 }
-    

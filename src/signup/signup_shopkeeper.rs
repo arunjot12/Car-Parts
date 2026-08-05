@@ -7,27 +7,31 @@ use argon2::{
 use rand_core::OsRng;
 use validator::ValidateEmail;
 use crate::signup::read_input;
+
+
 pub fn signup_shopkeeper() -> SignupShopkeepers {
-    println!("Enter first name:");
+    println!("\n========== SHOPKEEPER SIGNUP ==========\n");
+
+    println!("Enter First Name:");
     let first_name = read_input().0;
 
-    println!("Enter email:");
+    println!("Enter Email:");
     let email = read_input().0;
 
     if email.validate_email() {
-        println!("Valid email");
+        println!("✅ Valid email.");
     } else {
-        println!("Invalid email");
+        println!("❌ Invalid email.");
     }
 
-    println!("Enter phone number:");
+    println!("Enter Phone Number (10 digits):");
     let phone_number = read_input().0;
 
     if phone_number.len() != 10 {
-        println!("Invalid phone number");
+        println!("❌ Invalid phone number.");
     }
 
-    println!("Enter password:");
+    println!("Enter Password:");
     let password = read_input().0;
 
     let argon = Argon2::default();
@@ -38,16 +42,26 @@ pub fn signup_shopkeeper() -> SignupShopkeepers {
         .unwrap()
         .to_string();
 
-    println!("Enter shop name:");
+    println!("Enter Shop Name:");
     let shop_name = read_input().0;
 
-    println!("Enter shop address:");
+    println!("Enter Shop Address:");
     let shop_address = read_input().0;
 
-    println!("Enter city:");
+    println!("Enter City:");
     let city = read_input().0;
 
-    SignupShopkeepers {
+    println!("\nCreating shopkeeper account...");
+    println!("--------------------------------------");
+    println!("First Name   : {}", first_name);
+    println!("Email        : {}", email);
+    println!("Phone Number : {}", phone_number);
+    println!("Shop Name    : {}", shop_name);
+    println!("Shop Address : {}", shop_address);
+    println!("City         : {}", city);
+    println!("--------------------------------------");
+
+    let shopkeeper = SignupShopkeepers {
         first_name: Some(first_name),
         email: Some(email),
         hashed_password: Some(hashed_password),
@@ -55,5 +69,9 @@ pub fn signup_shopkeeper() -> SignupShopkeepers {
         shop_name: Some(shop_name),
         shop_address: Some(shop_address),
         city: Some(city),
-    }
+    };
+
+    println!("✅ Shopkeeper data collected successfully.");
+
+    shopkeeper
 }
