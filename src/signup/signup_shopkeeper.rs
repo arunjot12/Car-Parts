@@ -1,4 +1,4 @@
-use crate::data::SignupShopkeepers;
+use crate::data::NewSignupShopkeepers;
 use argon2::{
     password_hash::SaltString,
     Argon2,
@@ -9,7 +9,7 @@ use validator::ValidateEmail;
 use crate::signup::read_input;
 
 
-pub fn signup_shopkeeper() -> SignupShopkeepers {
+pub fn signup_shopkeeper() -> NewSignupShopkeepers {
     println!("\n========== SHOPKEEPER SIGNUP ==========\n");
 
     println!("Enter First Name:");
@@ -61,7 +61,7 @@ pub fn signup_shopkeeper() -> SignupShopkeepers {
     println!("City         : {}", city);
     println!("--------------------------------------");
 
-    let shopkeeper = SignupShopkeepers {
+    let shopkeeper = NewSignupShopkeepers {
         first_name: Some(first_name),
         email: Some(email),
         hashed_password: Some(hashed_password),

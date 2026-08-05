@@ -1,15 +1,13 @@
-use crate::data::Users;
+use crate::data::NewUsers;
 use argon2::{
     Argon2, PasswordHasher,
     password_hash::SaltString,
 };
 use rand_core::OsRng;
-use std::io;
 use validator::ValidateEmail;
 use crate::signup::read_input;
 
-
-pub fn signup_users() -> Users {
+pub fn signup_users() -> NewUsers {
     println!("\n========== USER SIGNUP ==========\n");
 
     println!("Enter First Name:");
@@ -47,7 +45,7 @@ pub fn signup_users() -> Users {
     println!("Phone      : {}", phone_number);
     println!("--------------------------------");
 
-    Users {
+    NewUsers {
         first_name,
         email,
         hashed_password,
