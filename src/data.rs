@@ -9,3 +9,17 @@ pub struct Users{
     pub hashed_password: String,
     pub phone_number: i32
 }
+
+#[derive(Debug)]
+#[derive(Queryable,Selectable)]
+#[diesel(table_name = crate::schema::signup_shopkeepers)]
+pub struct SignupShopkeepers {
+    pub id: i32,
+    pub first_name: Option<String>,
+    pub email: Option<String>,
+    pub hashed_password: Option<String>,
+    pub phone_number: Option<String>,
+    pub shop_name: Option<String>,
+    pub shop_address: Option<String>,
+    pub city: Option<String>
+}
