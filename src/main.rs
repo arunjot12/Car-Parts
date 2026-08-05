@@ -1,11 +1,16 @@
 use std::env;
 pub mod data;
 pub mod signup;
+use diesel::{ExpressionMethods, OptionalExtension};
+use diesel::query_dsl::methods::FilterDsl;
 use diesel::{Connection,RunQueryDsl, insert_into, mysql::MysqlConnection};
 use dotenv::dotenv;
+use crate::data::SignupShopkeepers;
 use crate::schema::users::dsl::users;
+use crate::signup::signup_users::signup_users;
 use crate::signup::{read_input, signup_users};
 pub mod schema;
+pub use schema::users::dsl::*;
 
 fn establish_connection() -> MysqlConnection {
     dotenv().ok();
@@ -23,6 +28,10 @@ async fn main() {
     let choice = read_input().1;
     if choice == 0 {
         let customer = signup_users::signup_users();
+        let customer_phone_number = customer.phone_number;
+
+        let check_email = users.filter(phone_number.eq(customer_phone_number)).first::<SignupShopkeepers>(&mut connection).optional();
+
         let insert_customer = insert_into(users)
             .values(customer)
             .execute(&mut connection);
@@ -31,10 +40,10 @@ async fn main() {
             Err(err) => println!("{}", err),
         }
     } else {
-           let insert_shopkeeper = insert_into(users).values(store_data).execute(&mut connection);
-            match insert_shopkeeper {
-                Ok(_) => println!("Insertion is completed for shopkeeper"),
-                Err(err) => println!("{}",err)
-            }
+        //    let insert_shopkeeper = insert_into(users).values(store_data).execute(&mut connection);
+        //     match insert_shopkeeper {
+        //         Ok(_) => println!("Insertion is completed for shopkeeper"),
+        //         Err(err) => println!("{}",err)
+        //     }
     }
 }
