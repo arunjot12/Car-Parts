@@ -24,7 +24,7 @@ pub struct NewSignupShopkeepers {
 
 #[derive(Debug, Queryable, Selectable)]
 #[diesel(table_name = crate::schema::users)]
-#[diesel(check_for_backend(diesel::mysql::Mysql))]
+// #[diesel(check_for_backend(diesel::mysql::Mysql))]
 pub struct Users {
     pub id: i32,
     pub first_name: Option<String>,
@@ -37,6 +37,7 @@ pub struct Users {
 
 #[derive(Debug, Queryable, Selectable)]
 #[diesel(table_name = crate::schema::signup_shopkeepers)]
+// #[diesel(check_for_backend(diesel::mysql::Mysql))]
 pub struct SignupShopkeepers {
     pub id: i32,
     pub first_name: Option<String>,

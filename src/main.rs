@@ -3,14 +3,14 @@ pub mod data;
 pub mod signup;
 use crate::data::Users;
 use crate::signup::signup_shopkeeper::signup_shopkeeper;
-use crate::signup::{read_input, signup_users, signup_shopkeeper};
+use crate::signup::{read_input, signup_shopkeeper, signup_users};
 use diesel::prelude::*;
 use diesel::{insert_into, mysql::MysqlConnection};
 use dotenv::dotenv;
 pub mod schema;
-pub use schema::users::dsl::*;
+use crate::data::SignupShopkeepers;
 pub use schema::signup_shopkeepers::dsl::*;
-
+pub use schema::users::dsl::*;
 
 fn establish_connection() -> MysqlConnection {
     dotenv().ok();
@@ -42,11 +42,22 @@ async fn main() {
             Err(err) => println!("{}", err),
         }
     } else {
-            let shopkeeper = signup_shopkeeper::signup_shopkeeper();
-           let insert_shopkeeper = insert_into(signup_shopkeepers).values(shopkeeper).execute(&mut connection);
-            match insert_shopkeeper {
-                Ok(_) => println!("Insertion is completed for shopkeeper"),
-                Err(err) => println!("{}",err)
-            }
+        let shopkeeper = signup_shopkeeper::signup_shopkeeper();
+        let shopkeeper_phone_number = shopkeeper.phone_number.clone();
+
+        let check = signup_shopkeepers.
+        select(SignupShopkeepers::as_select())
+        .filter(schema::signup_shopkeepers::dsl::phone_number.eq(&shopkeeper_phone_number))
+        .first(&mut connection)
+        .optional();
+
+
+        let insert_shopkeeper = insert_into(signup_shopkeepers)
+            .values(shopkeeper)
+            .execute(&mut connection);
+        match insert_shopkeeper {
+            Ok(_) => println!("Insertion is completed for shopkeeper"),
+            Err(err) => println!("{}", err),
+        }
     }
 }
