@@ -1,5 +1,6 @@
 pub mod signup_shopkeeper;
 pub mod signup_users;
+pub mod database;
 
 use std::io;
 pub fn read_input() -> (String,i32) {
