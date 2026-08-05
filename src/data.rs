@@ -14,7 +14,6 @@ pub struct Users{
 #[derive(Queryable,Selectable)]
 #[diesel(table_name = crate::schema::signup_shopkeepers)]
 pub struct SignupShopkeepers {
-    pub id: i32,
     pub first_name: Option<String>,
     pub email: Option<String>,
     pub hashed_password: Option<String>,

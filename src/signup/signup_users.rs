@@ -7,6 +7,7 @@ use argon2::{
 use rand_core::OsRng;
 use std::io;
 use validator::ValidateEmail;
+use crate::signup::read_input;
 
 pub fn signup_users() -> Users {
     let first_name = read_input();
@@ -40,12 +41,4 @@ pub fn signup_users() -> Users {
         hashed_password: new_hashed_password,
         phone_number,
     }
-}
-
-fn read_input() -> String {
-    let mut input = String::new();
-
-    io::stdin().read_line(&mut input).expect("Failed to read");
-
-    input.trim().to_owned()
 }
