@@ -1,16 +1,16 @@
 use std::env;
 pub mod data;
 pub mod signup;
-use diesel::{ExpressionMethods, OptionalExtension};
-use diesel::query_dsl::methods::FilterDsl;
-use diesel::{Connection,RunQueryDsl, insert_into, mysql::MysqlConnection};
+use crate::data::Users;
+use crate::signup::signup_shopkeeper::signup_shopkeeper;
+use crate::signup::{read_input, signup_users, signup_shopkeeper};
+use diesel::prelude::*;
+use diesel::{insert_into, mysql::MysqlConnection};
 use dotenv::dotenv;
-use crate::data::SignupShopkeepers;
-use crate::schema::users::dsl::users;
-use crate::signup::signup_users::signup_users;
-use crate::signup::{read_input, signup_users};
 pub mod schema;
 pub use schema::users::dsl::*;
+pub use schema::signup_shopkeepers::dsl::*;
+
 
 fn establish_connection() -> MysqlConnection {
     dotenv().ok();
@@ -28,22 +28,25 @@ async fn main() {
     let choice = read_input().1;
     if choice == 0 {
         let customer = signup_users::signup_users();
-        let customer_phone_number = customer.phone_number;
+        let customer_phone_number = customer.phone_number.clone();
 
-        let check_email = users.filter(phone_number.eq(customer_phone_number)).first::<SignupShopkeepers>(&mut connection).optional();
+        let _check_email = users
+            .select(Users::as_select())
+            .filter(schema::users::dsl::phone_number.eq(&customer_phone_number))
+            .first(&mut connection)
+            .optional();
 
-        let insert_customer = insert_into(users)
-            .values(customer)
-            .execute(&mut connection);
+        let insert_customer = insert_into(users).values(customer).execute(&mut connection);
         match insert_customer {
             Ok(_) => println!("Insertion is completed for customer"),
             Err(err) => println!("{}", err),
         }
     } else {
-        //    let insert_shopkeeper = insert_into(users).values(store_data).execute(&mut connection);
-        //     match insert_shopkeeper {
-        //         Ok(_) => println!("Insertion is completed for shopkeeper"),
-        //         Err(err) => println!("{}",err)
-        //     }
+            let shopkeeper = signup_shopkeeper::signup_shopkeeper();
+           let insert_shopkeeper = insert_into(signup_shopkeepers).values(shopkeeper).execute(&mut connection);
+            match insert_shopkeeper {
+                Ok(_) => println!("Insertion is completed for shopkeeper"),
+                Err(err) => println!("{}",err)
+            }
     }
 }

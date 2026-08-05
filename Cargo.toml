@@ -6,7 +6,7 @@ edition = "2024"
 [dependencies]
 argon2 = "0.5.3"
 axum = "0.8.9"
-diesel = { version = "2.3.11", features = ["mysql"] }
+diesel = { version = "2.3.11", features = ["mysql", "chrono"] }
 dotenv = "0.15.0"
 serde = "1.0.228"
 sqlx = {version = "0.9.0", features = ["mysql", "macros"]}

@@ -10,7 +10,7 @@ pub struct NewUsers {
     pub phone_number: String,
 }
 
-#[derive(Debug, Queryable, Selectable)]
+#[derive(Debug, Queryable, Selectable, Insertable)]
 #[diesel(table_name = crate::schema::signup_shopkeepers)]
 pub struct NewSignupShopkeepers {
     pub first_name: Option<String>,
@@ -24,11 +24,12 @@ pub struct NewSignupShopkeepers {
 
 #[derive(Debug, Queryable, Selectable)]
 #[diesel(table_name = crate::schema::users)]
+#[diesel(check_for_backend(diesel::mysql::Mysql))]
 pub struct Users {
     pub id: i32,
-    pub first_name: String,
-    pub email: String,
-    pub hashed_password: String,
+    pub first_name: Option<String>,
+    pub email: Option<String>,
+    pub hashed_password: Option<String>,
     pub phone_number: String,
     pub created_at: Option<NaiveDateTime>,
     pub updated_at: Option<NaiveDateTime>,
