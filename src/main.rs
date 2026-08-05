@@ -4,6 +4,8 @@ pub mod data;
 pub mod signup;
 use diesel::{Connection, insert_into, mysql::MysqlConnection};
 use dotenv::dotenv;
+
+use crate::signup::read_input;
 pub mod schema; 
 
 fn establish_connection() -> MysqlConnection {
@@ -15,12 +17,26 @@ fn establish_connection() -> MysqlConnection {
 #[tokio::main]
 async fn main() {
    establish_connection();
+   println!("Let's start the database entry. Choice the right option");
+   println!("1 for customer ");
+   println!("2 for shopkeeper");
 
+   let choice = read_input().1;
+   if choice == 0 {
+//    let insertion = insert_into(users).values(store_data).execute(&mut connection);
+//     match insertion {
+//         Ok(_) => println!("Insertion is done"),
+//         Err(err) => println!("{}",err)
+//     }
+   }
+   else{
 
 //    let insertion = insert_into(users).values(store_data).execute(&mut connection);
 //     match insertion {
 //         Ok(_) => println!("Insertion is done"),
 //         Err(err) => println!("{}",err)
 //     }
+   }
+
 }
     

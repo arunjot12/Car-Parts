@@ -9,10 +9,10 @@ use validator::ValidateEmail;
 use crate::signup::read_input;
 pub fn signup_shopkeeper() -> SignupShopkeepers {
     println!("Enter first name:");
-    let first_name = read_input();
+    let first_name = read_input().0;
 
     println!("Enter email:");
-    let email = read_input();
+    let email = read_input().0;
 
     if email.validate_email() {
         println!("Valid email");
@@ -21,14 +21,14 @@ pub fn signup_shopkeeper() -> SignupShopkeepers {
     }
 
     println!("Enter phone number:");
-    let phone_number = read_input();
+    let phone_number = read_input().0;
 
     if phone_number.len() != 10 {
         println!("Invalid phone number");
     }
 
     println!("Enter password:");
-    let password = read_input();
+    let password = read_input().0;
 
     let argon = Argon2::default();
     let salt = SaltString::generate(&mut OsRng);
@@ -39,13 +39,13 @@ pub fn signup_shopkeeper() -> SignupShopkeepers {
         .to_string();
 
     println!("Enter shop name:");
-    let shop_name = read_input();
+    let shop_name = read_input().0;
 
     println!("Enter shop address:");
-    let shop_address = read_input();
+    let shop_address = read_input().0;
 
     println!("Enter city:");
-    let city = read_input();
+    let city = read_input().0;
 
     SignupShopkeepers {
         first_name: Some(first_name),

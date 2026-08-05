@@ -10,8 +10,8 @@ use validator::ValidateEmail;
 use crate::signup::read_input;
 
 pub fn signup_users() -> Users {
-    let first_name = read_input();
-    let email = read_input();
+    let first_name = read_input().0;
+    let email = read_input().0;
 
     if email.validate_email() {
         println!("Valid email");
@@ -27,7 +27,7 @@ pub fn signup_users() -> Users {
     if phone_number < 10 {
         println!("Invalid Number")
     }
-    let password = read_input();
+    let password = read_input().0;
     let argon = Argon2::default();
     let salt_string = SaltString::generate(&mut OsRng);
     let new_hashed_password = argon
