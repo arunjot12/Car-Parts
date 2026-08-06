@@ -14,7 +14,7 @@ async fn main() {
     println!("1 for customer");
     println!("2 for shopkeeper");
 
-    let choice = read_input().1;
+    let choice :i32 = read_input();
     match choice {
         1 => handle_customer_signup(&mut connection),
         2 => handle_shopkeeper_signup(&mut connection),

@@ -11,24 +11,24 @@ pub fn signup_users() -> NewUsers {
     println!("\n========== USER SIGNUP ==========\n");
 
     println!("Enter First Name:");
-    let first_name = read_input().0;
+    let first_name  : String = read_input();
 
     println!("Enter Email:");
-    let email = read_input().0;
+    let email : String = read_input();
 
     if !email.validate_email() {
         println!("❌ Invalid email format.");
     }
 
     println!("Enter Phone Number (10 digits):");
-    let phone_number = read_input().0;
+    let phone_number: String = read_input();
 
     if phone_number.len() != 10 {
         println!("❌ Phone number must be 10 digits.");
     }
 
     println!("Enter Password:");
-    let password = read_input().0;
+    let password : String = read_input();
 
     let argon = Argon2::default();
     let salt = SaltString::generate(&mut OsRng);

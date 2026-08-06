@@ -13,10 +13,10 @@ pub fn signup_shopkeeper() -> NewSignupShopkeepers {
     println!("\n========== SHOPKEEPER SIGNUP ==========\n");
 
     println!("Enter First Name:");
-    let first_name = read_input().0;
+    let first_name: String = read_input();
 
     println!("Enter Email:");
-    let email = read_input().0;
+    let email: String = read_input();
 
     if email.validate_email() {
         println!("✅ Valid email.");
@@ -25,14 +25,14 @@ pub fn signup_shopkeeper() -> NewSignupShopkeepers {
     }
 
     println!("Enter Phone Number (10 digits):");
-    let phone_number = read_input().0;
+    let phone_number: String = read_input();
 
     if phone_number.len() != 10 {
         println!("❌ Invalid phone number.");
     }
 
     println!("Enter Password:");
-    let password = read_input().0;
+    let password:String = read_input();
 
     let argon = Argon2::default();
     let salt = SaltString::generate(&mut OsRng);
@@ -43,13 +43,13 @@ pub fn signup_shopkeeper() -> NewSignupShopkeepers {
         .to_string();
 
     println!("Enter Shop Name:");
-    let shop_name = read_input().0;
+    let shop_name: String = read_input();
 
     println!("Enter Shop Address:");
-    let shop_address = read_input().0;
+    let shop_address: String = read_input();
 
     println!("Enter City:");
-    let city = read_input().0;
+    let city: String = read_input();
 
     println!("\nCreating shopkeeper account...");
     println!("--------------------------------------");
