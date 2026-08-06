@@ -1,23 +1,30 @@
-pub mod connection;
-pub mod data;
+pub mod db;
+pub mod models;
 pub mod schema;
 pub mod signup;
+pub mod cli;
 
-use crate::connection::establish_connection;
+use std::net::TcpListener;
+
+use axum::{Json, serve};
+use axum::routing::Route;
+
+use crate::db::establish_connection;
 use crate::signup::handler::{handle_customer_signup, handle_shopkeeper_signup};
-use crate::signup::read_input;
+use crate::signup::signup_users::signup_user;
+use crate::signup::signup_shopkeeper::signup_shopkeeper;
 
 #[tokio::main]
 async fn main() {
     let mut connection = establish_connection();
-    println!("Let's start the database entry. Choose the right option:");
-    println!("1 for customer");
-    println!("2 for shopkeeper");
 
-    let choice :i32 = read_input();
-    match choice {
-        1 => handle_customer_signup(&mut connection),
-        2 => handle_shopkeeper_signup(&mut connection),
-        _ => println!("❌ Invalid choice"),
-    }
+    let app = Router::new().route("./signup",post(signup));
+    let listener = TcpListener::bind("127.0.0.1:3000").await;
+
+    serve(listener, app).await.unwrap();
+
+}
+
+pub async fn signup(Json(request: Json<NewUsers>)) -> StatusCode {
+
 }
