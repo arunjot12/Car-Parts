@@ -64,7 +64,7 @@ pub fn signup_shopkeeper() -> NewSignupShopkeepers {
     let shopkeeper = NewSignupShopkeepers {
         first_name: Some(first_name),
         email: Some(email),
-        hashed_password: Some(hashed_password),
+        password: Some(hashed_password),
         phone_number: Some(phone_number),
         shop_name: Some(shop_name),
         shop_address: Some(shop_address),

@@ -1,8 +1,9 @@
 pub mod signup_shopkeeper;
 pub mod signup_users;
-pub mod database;
+pub mod handler;
 
 use std::{io, str::FromStr};
+
 pub fn read_input<T>() -> T 
 where 
     T: FromStr,

@@ -4,7 +4,7 @@ pub mod schema;
 pub mod signup;
 
 use crate::connection::establish_connection;
-use crate::signup::database::{handle_customer_signup, handle_shopkeeper_signup};
+use crate::signup::handler::{handle_customer_signup, handle_shopkeeper_signup};
 use crate::signup::read_input;
 
 #[tokio::main]

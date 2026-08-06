@@ -8,7 +8,7 @@ diesel::table! {
         #[max_length = 255]
         email -> Nullable<Varchar>,
         #[max_length = 255]
-        hashed_password -> Nullable<Varchar>,
+        password -> Nullable<Varchar>,
         #[max_length = 10]
         phone_number -> Nullable<Char>,
         #[max_length = 255]
@@ -30,7 +30,7 @@ diesel::table! {
         #[max_length = 255]
         email -> Nullable<Varchar>,
         #[max_length = 255]
-        hashed_password -> Nullable<Varchar>,
+        password -> Nullable<Varchar>,
         #[max_length = 10]
         phone_number -> Char,
         created_at -> Nullable<Timestamp>,

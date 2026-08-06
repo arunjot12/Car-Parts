@@ -7,48 +7,54 @@ use rand_core::OsRng;
 use validator::ValidateEmail;
 use crate::signup::read_input;
 
-pub fn signup_users() -> NewUsers {
-    println!("\n========== USER SIGNUP ==========\n");
+pub fn signup_user(req: NewUsers) -> Result<NewUsers, String> {
+    if !req.email.validate_email() {
+        return Err("Invalid email".into());
+    }
+    if req.phone_number.len() != 10 {
+        return Err("Phone number should be 10 digits".into());
+    }
 
-    println!("Enter First Name:");
+    let argon = Argon2::default();
+    let salt = SaltString::generate(&mut OsRng);
+    let password = argon
+        .hash_password(req.password.as_bytes(), &salt)
+        .unwrap()
+        .to_string();
+
+    Ok(NewUsers {
+        first_name: req.first_name,
+        email: req.email,
+        phone_number: req.phone_number,
+        password,
+    })
+}
+
+pub fn signup_users_cli() -> NewUsers {
     let first_name  : String = read_input();
 
-    println!("Enter Email:");
     let email : String = read_input();
-
     if !email.validate_email() {
         println!("❌ Invalid email format.");
     }
 
-    println!("Enter Phone Number (10 digits):");
     let phone_number: String = read_input();
-
     if phone_number.len() != 10 {
         println!("❌ Phone number must be 10 digits.");
     }
 
-    println!("Enter Password:");
     let password : String = read_input();
-
     let argon = Argon2::default();
     let salt = SaltString::generate(&mut OsRng);
-
-    let hashed_password = argon
+    let password = argon
         .hash_password(password.as_bytes(), &salt)
         .unwrap()
         .to_string();
 
-    println!("\nCreating user account...");
-    println!("--------------------------------");
-    println!("First Name : {}", first_name);
-    println!("Email      : {}", email);
-    println!("Phone      : {}", phone_number);
-    println!("--------------------------------");
-
     NewUsers {
         first_name,
         email,
-        hashed_password,
+        password,
         phone_number,
     }
 }
