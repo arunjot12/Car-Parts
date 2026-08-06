@@ -753,6 +753,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "gearly"
+version = "0.1.0"
+dependencies = [
+ "argon2",
+ "axum",
+ "chrono",
+ "diesel",
+ "dotenv",
+ "lettre",
+ "rand_core 0.6.4",
+ "reqwest",
+ "serde",
+ "sqlx",
+ "tokio",
+ "validator",
+]
+
+[[package]]
 name = "generic-array"
 version = "0.14.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1705,24 +1723,6 @@ dependencies = [
  "libc",
  "untrusted",
  "windows-sys 0.52.0",
-]
-
-[[package]]
-name = "rust_axum"
-version = "0.1.0"
-dependencies = [
- "argon2",
- "axum",
- "chrono",
- "diesel",
- "dotenv",
- "lettre",
- "rand_core 0.6.4",
- "reqwest",
- "serde",
- "sqlx",
- "tokio",
- "validator",
 ]
 
 [[package]]
