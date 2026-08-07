@@ -6,7 +6,7 @@ use argon2::{
 use rand_core::OsRng;
 use validator::ValidateEmail;
 
-pub fn signup_user(req: NewUsers) -> Result<NewUsers, String> {
+pub fn check_signup_user(req: NewUsers) -> Result<NewUsers, String> {
     if !req.email.validate_email() {
         return Err("Invalid email".into());
     }

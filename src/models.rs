@@ -2,7 +2,7 @@ use diesel::prelude::*;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Queryable, Insertable, Selectable)]
+#[derive(Debug, Queryable, Insertable,Serialize, Deserialize, Selectable)]
 #[diesel(table_name = crate::schema::users)]
 pub struct NewUsers {
     pub first_name: String,
