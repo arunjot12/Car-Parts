@@ -7,7 +7,7 @@ use argon2::{
 use rand_core::OsRng;
 use validator::ValidateEmail;
 
-pub fn signup_shopkeeper(req: NewSignupShopkeepers) -> Result<NewSignupShopkeepers, String> {
+pub fn check_signup_shopkeeper(req: NewSignupShopkeepers) -> Result<NewSignupShopkeepers, String> {
     if let Some(ref email) = req.email {
         if !email.validate_email() {
             return Err("Invalid email format".into());

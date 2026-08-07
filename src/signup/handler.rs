@@ -36,7 +36,7 @@ pub fn handle_customer_signup(connection: &mut MysqlConnection, customer: &NewUs
 pub fn handle_shopkeeper_signup(
     connection: &mut MysqlConnection,
     shopkeeper: &NewSignupShopkeepers,
-) {
+) -> Result<String,String>{
     if let Some(ref phone) = shopkeeper.phone_number {
         let check_shopkeeper_number: Result<Option<SignupShopkeepers>, _> =
             signup_shopkeepers::table
@@ -45,16 +45,14 @@ pub fn handle_shopkeeper_signup(
                 .first(connection)
                 .optional();
 
+
         match check_shopkeeper_number {
-            Ok(Some(_)) => {
-                println!("❌ Phone number already registered as shopkeeper.");
-                return;
+            Ok(_) => {
+              println!("Validation is successfully")
             }
             Err(err) => {
-                println!("❌ Database error during validation check: {}", err);
-                return;
+                return Err(err.to_string())
             }
-            Ok(None) => {}
         }
     }
 
@@ -63,7 +61,8 @@ pub fn handle_shopkeeper_signup(
         .execute(connection);
 
     match insert_result {
-        Ok(_) => println!("✅ Shopkeeper registered successfully!"),
-        Err(err) => println!("❌ Failed to insert shopkeeper: {}", err),
-    }
+        Ok(_) => Ok("✅ Shopkeeper registered successfully!".to_string()),
+        Err(err) => {
+                return Err(err.to_string())
+            }    }
 }
