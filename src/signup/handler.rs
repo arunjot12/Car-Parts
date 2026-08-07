@@ -1,8 +1,8 @@
+use crate::models::{NewSignupShopkeepers, NewUsers, SignupShopkeepers, Users};
+use crate::schema::{signup_shopkeepers, users};
 use diesel::insert_into;
 use diesel::mysql::MysqlConnection;
 use diesel::prelude::*;
-use crate::models::{NewSignupShopkeepers, NewUsers, SignupShopkeepers, Users};
-use crate::schema::{signup_shopkeepers, users};
 
 pub fn handle_customer_signup(connection: &mut MysqlConnection, customer: &NewUsers) {
     let check_customer_number: Result<Option<Users>, _> = users::table
@@ -33,7 +33,10 @@ pub fn handle_customer_signup(connection: &mut MysqlConnection, customer: &NewUs
     }
 }
 
-pub fn handle_shopkeeper_signup(connection: &mut MysqlConnection, shopkeeper: &NewSignupShopkeepers) {
+pub fn handle_shopkeeper_signup(
+    connection: &mut MysqlConnection,
+    shopkeeper: &NewSignupShopkeepers,
+) {
     if let Some(ref phone) = shopkeeper.phone_number {
         let check_shopkeeper_number: Result<Option<SignupShopkeepers>, _> =
             signup_shopkeepers::table
