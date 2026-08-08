@@ -6,7 +6,7 @@ pub fn handle_customer_signup(
     connection: &mut MysqlConnection,
     customer: &NewUsers,
 ) -> Result<String, String> {
-    let check_customer_number: Result<Option<Users>, _> = users::table
+    let check_customer_number = users::table
         .select(Users::as_select())
         .filter(users::phone_number.eq(&customer.phone_number))
         .first(connection)

@@ -56,6 +56,6 @@ pub struct SignupShopkeepers {
 
 #[derive(Debug)]
 pub struct Login{
-    pub username: String,
+    pub username_or_email: String,
     pub password: String
 }
