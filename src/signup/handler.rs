@@ -1,8 +1,6 @@
 use crate::models::{NewSignupShopkeepers, NewUsers, SignupShopkeepers, Users};
 use crate::schema::{signup_shopkeepers, users};
-use diesel::insert_into;
-use diesel::mysql::MysqlConnection;
-use diesel::prelude::*;
+use diesel::{insert_into, mysql::MysqlConnection, prelude::*};
 
 pub fn handle_customer_signup(
     connection: &mut MysqlConnection,

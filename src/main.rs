@@ -6,8 +6,7 @@ pub mod login;
 pub mod cli;
 use axum::{Router,serve,routing::post};
 use tokio::net::TcpListener;
-use crate::models::NewSignupShopkeepers;
-use crate::signup::api::{signup_shopkeeper, signup_users};
+use crate::{models::NewSignupShopkeepers, signup::api::{signup_shopkeeper, signup_users}};
 
 #[tokio::main]
 async fn main() {

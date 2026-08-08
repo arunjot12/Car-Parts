@@ -1,11 +1,14 @@
-use crate::signup::{signup_shopkeeper::check_signup_shopkeeper};
-use crate::signup::handler::{handle_customer_signup, handle_shopkeeper_signup};
-use crate::db::establish_connection;
-use crate::NewSignupShopkeepers;
-use crate::models::NewUsers;
-use axum::Json;
-use crate::signup::signup_users::check_signup_user;
-use axum::http::StatusCode;
+use axum::{http::StatusCode, Json};
+use crate::{
+    db::establish_connection,
+    models::NewUsers,
+    signup::{
+        handler::{handle_customer_signup, handle_shopkeeper_signup},
+        signup_shopkeeper::check_signup_shopkeeper,
+        signup_users::check_signup_user,
+    },
+    NewSignupShopkeepers,
+};
 
 pub async fn signup_shopkeeper(Json(payload): Json<NewSignupShopkeepers>) -> Result<(StatusCode,String), (StatusCode,String)> {
          let shopkeeper =    match check_signup_shopkeeper(payload) {
