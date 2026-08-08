@@ -20,8 +20,7 @@ You need to allow users and shopkeepers to log in securely and protect your API 
   - Verify the provided password against the hashed password in the DB using `argon2`.
   - If valid, generate a JWT and return it in the JSON response.
 - [ ] **Create Authentication Middleware (`src/auth/middleware.rs`)**
-  - Implement an Axum extractor (e.g., `impl<S> FromRequestParts<S> for AuthenticatedUser`).
-  - The middleware should read the `Authorization: Bearer <token>` header, decode the JWT, and make the user ID and role available to your route handlers.
+  - Implement an Axum extractor (e.g., `impl<S> FromRequestParts<S> for Authe   the `Authorization: Bearer <token>` header, decode the JWT, and make the user ID and role available to your route handlers.
 
 ## Phase 2: Car Parts Management (Shopkeepers)
 
