@@ -6,6 +6,8 @@ diesel::table! {
         #[max_length = 255]
         first_name -> Nullable<Varchar>,
         #[max_length = 255]
+        username -> Nullable<Varchar>,
+        #[max_length = 255]
         email -> Nullable<Varchar>,
         #[max_length = 255]
         password -> Nullable<Varchar>,
@@ -27,6 +29,8 @@ diesel::table! {
         id -> Integer,
         #[max_length = 255]
         first_name -> Nullable<Varchar>,
+        #[max_length = 255]
+        username -> Nullable<Varchar>,
         #[max_length = 255]
         email -> Nullable<Varchar>,
         #[max_length = 255]

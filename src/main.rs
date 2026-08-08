@@ -2,6 +2,7 @@ pub mod db;
 pub mod models;
 pub mod schema;
 pub mod signup;
+pub mod login;
 pub mod cli;
 use axum::{Router,serve,routing::post};
 use tokio::net::TcpListener;
