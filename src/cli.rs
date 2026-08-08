@@ -24,6 +24,10 @@ pub fn signup_users_cli() -> NewUsers {
 
     println!("Enter Phone Number (10 digits):");
     let phone_number: String = read_input();
+
+    println!("Enter Phone Number (10 digits):");
+    let username: String = read_input();
+
     if phone_number.len() != 10 {
         println!("❌ Phone number must be 10 digits.");
     }
@@ -33,6 +37,7 @@ pub fn signup_users_cli() -> NewUsers {
 
     NewUsers {
         first_name,
+        username,
         email,
         password,
         phone_number,
@@ -56,6 +61,9 @@ pub fn signup_shopkeeper_cli() -> NewSignupShopkeepers {
 
     println!("Enter Phone Number (10 digits):");
     let phone_number: String = read_input();
+
+    println!("Enter Username (10 digits):");
+    let username: String = read_input();
 
     if phone_number.len() != 10 {
         println!("❌ Invalid phone number.");
@@ -91,6 +99,7 @@ pub fn signup_shopkeeper_cli() -> NewSignupShopkeepers {
         shop_name: Some(shop_name),
         shop_address: Some(shop_address),
         city: Some(city),
+        username: username
     };
 
     println!("✅ Shopkeeper data collected successfully.");

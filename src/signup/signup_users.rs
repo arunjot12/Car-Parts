@@ -23,6 +23,7 @@ pub fn check_signup_user(req: NewUsers) -> Result<NewUsers, String> {
 
     Ok(NewUsers {
         first_name: req.first_name,
+        username: req.username,
         email: req.email,
         phone_number: req.phone_number,
         password,

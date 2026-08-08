@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 #[diesel(table_name = crate::schema::users)]
 pub struct NewUsers {
     pub first_name: String,
+    pub username: String,
     pub email: String,
     pub password: String,
     pub phone_number: String,
@@ -15,6 +16,7 @@ pub struct NewUsers {
 #[diesel(table_name = crate::schema::signup_shopkeepers)]
 pub struct NewSignupShopkeepers {
     pub first_name: Option<String>,
+    pub username: String,
     pub email: Option<String>,
     pub password: Option<String>,
     pub phone_number: Option<String>,
@@ -27,6 +29,7 @@ pub struct NewSignupShopkeepers {
 #[diesel(table_name = crate::schema::users)]
 pub struct Users {
     pub id: i32,
+    pub username: Option<String>,
     pub first_name: Option<String>,
     pub email: Option<String>,
     pub password: Option<String>,
@@ -40,6 +43,7 @@ pub struct Users {
 pub struct SignupShopkeepers {
     pub id: i32,
     pub first_name: Option<String>,
+    pub username: Option<String>,
     pub email: Option<String>,
     pub password: Option<String>,
     pub phone_number: Option<String>,
@@ -52,6 +56,6 @@ pub struct SignupShopkeepers {
 
 #[derive(Debug)]
 pub struct Login{
-    user_name: String,
-    password: String
+    pub username: String,
+    pub password: String
 }
